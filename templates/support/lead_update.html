@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Lead - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Update Lead</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/leads/">Back to Leads</a>
+                <a href="/dashboard/">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>{{ lead.name }}</h2>
+
+            <p><strong>Email:</strong> {{ lead.email }}</p>
+            <p><strong>Phone:</strong> {{ lead.phone }}</p>
+            <p><strong>Product Interest:</strong> {{ lead.product_interest }}</p>
+            <p><strong>Original Question:</strong> {{ lead.original_question }}</p>
+        </div>
+
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+
+                <p>
+                    {{ form.status.label_tag }}<br>
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </p>
+
+                <p>
+                    {{ form.notes.label_tag }}<br>
+                    {{ form.notes }}
+                    {{ form.notes.errors }}
+                </p>
+
+                <button type="submit">Save Lead Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

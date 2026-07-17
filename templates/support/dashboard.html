@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Northstar Support Dashboard</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Northstar Home Co. Support Dashboard</h1>
+
+            <p>
+                Logged in as: <strong>{{ request.user.username }}</strong>
+            </p>
+
+            <div class="nav-links">
+                <a href="/chat/">Open Customer Chatbot</a>
+                <a href="/dashboard/chats/">Chat History</a>
+                <a href="/dashboard/leads/">Leads</a>
+                <a href="/dashboard/unanswered/">Unanswered Questions</a>
+                <a href="/dashboard/faqs/">FAQ Management</a>
+
+                <form method="post" action="/accounts/logout/" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>Dashboard Summary</h2>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <h3>Total Chats</h3>
+                <div class="number">{{ total_chats }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Answered Chats</h3>
+                <div class="number">{{ answered_chats }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Unanswered Chats</h3>
+                <div class="number">{{ unanswered_chats }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Leads</h3>
+                <div class="number">{{ total_leads }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>New Leads</h3>
+                <div class="number">{{ new_leads }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Active FAQs</h3>
+                <div class="number">{{ active_faqs }}</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Answer Rate</h3>
+                <div class="number">{{ answer_rate }}%</div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Fallback Rate</h3>
+                <div class="number">{{ fallback_rate }}%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Recent Chats</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Question</th>
+                        <th>Bot Answer</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+
+                    {% for chat in recent_chats %}
+                        <tr>
+                            <td>{{ chat.customer_question }}</td>
+                            <td>{{ chat.bot_answer|truncatechars:100 }}</td>
+                            <td>
+                                {% if chat.was_answered %}
+                                    <span class="status-good">Answered</span>
+                                {% else %}
+                                    <span class="status-warning">Unanswered</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ chat.created_at }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No chats found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Recent Leads</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Product Interest</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+
+                    {% for lead in recent_leads %}
+                        <tr>
+                            <td>{{ lead.name }}</td>
+                            <td>{{ lead.email }}</td>
+                            <td>{{ lead.product_interest }}</td>
+                            <td>{{ lead.status }}</td>
+                            <td>{{ lead.created_at }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No leads found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Recent Unanswered Questions</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Question</th>
+                        <th>Status</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                    </tr>
+
+                    {% for item in recent_unanswered %}
+                        <tr>
+                            <td>{{ item.question }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.customer_email }}</td>
+                            <td>{{ item.created_at }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No unanswered questions found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

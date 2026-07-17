@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ Management - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>FAQ / Knowledge Base Management</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/">Back to Dashboard</a>
+                <a href="/dashboard/faqs/add/">Add New FAQ</a>
+                <a href="/chat/">Open Customer Chatbot</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <p>
+                Use specific keywords for better chatbot matching.
+                Good example: <strong>free shipping, shipping cost, delivery fee</strong>.
+                Avoid broad keywords like <strong>help</strong>, <strong>product</strong>, or <strong>offer</strong>.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Category</th>
+                        <th>Keywords</th>
+                        <th>Active?</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for faq in faqs %}
+                        <tr>
+                            <td>{{ faq.question }}</td>
+                            <td>{{ faq.answer }}</td>
+                            <td>{{ faq.category }}</td>
+                            <td>{{ faq.keywords }}</td>
+                            <td>
+                                {% if faq.is_active %}
+                                    <span class="status-good">Yes</span>
+                                {% else %}
+                                    <span class="status-warning">No</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ faq.created_at }}</td>
+                            <td>{{ faq.updated_at }}</td>
+                            <td>
+                                <a href="/dashboard/faqs/{{ faq.id }}/edit/">Edit</a> |
+                                <a href="/dashboard/faqs/{{ faq.id }}/delete/">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8">No FAQs found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

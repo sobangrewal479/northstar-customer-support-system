@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Northstar Home Co. Support Chat</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Northstar Home Co. Support Chat</h1>
+
+            <p>
+                Ask us about shipping, returns, products, discounts, order changes,
+                damaged items, or store policies.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Ask a Question</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="ask_question">
+
+                <p>
+                    {{ form.question.label_tag }}<br>
+                    {{ form.question }}
+                    {{ form.question.errors }}
+                </p>
+
+                <button type="submit">Ask Question</button>
+            </form>
+        </div>
+
+        {% if bot_answer %}
+            <div class="message-box">
+                <h2>Bot Response</h2>
+
+                {% if was_answered %}
+                    <p class="status-good"><strong>Status:</strong> Answered from FAQ</p>
+                {% else %}
+                    <p class="status-warning"><strong>Status:</strong> Unanswered / Follow-up needed</p>
+                {% endif %}
+
+                <p>{{ bot_answer }}</p>
+
+                {% if matched_faq %}
+                    <p><strong>Matched FAQ:</strong> {{ matched_faq.question }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if show_lead_form %}
+            <div class="card">
+                <h2>Need Follow-Up?</h2>
+
+                <p>
+                    Leave your details if you want our team to follow up about this question.
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="save_lead">
+
+                    {{ lead_form.original_question }}
+
+                    <p>
+                        {{ lead_form.name.label_tag }}<br>
+                        {{ lead_form.name }}
+                        {{ lead_form.name.errors }}
+                    </p>
+
+                    <p>
+                        {{ lead_form.email.label_tag }}<br>
+                        {{ lead_form.email }}
+                        {{ lead_form.email.errors }}
+                    </p>
+
+                    <p>
+                        {{ lead_form.phone.label_tag }}<br>
+                        {{ lead_form.phone }}
+                        {{ lead_form.phone.errors }}
+                    </p>
+
+                    <p>
+                        {{ lead_form.product_interest.label_tag }}<br>
+                        {{ lead_form.product_interest }}
+                        {{ lead_form.product_interest.errors }}
+                    </p>
+
+                    <button type="submit">Submit Follow-Up Details</button>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if lead_saved %}
+            <div class="message-box">
+                <h2>Follow-Up Details Saved</h2>
+
+                <p class="status-good">
+                    Your contact details were submitted successfully.
+                    Our team can now follow up about your question.
+                </p>
+
+                {% if submitted_question %}
+                    <p><strong>Original question:</strong> {{ submitted_question }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

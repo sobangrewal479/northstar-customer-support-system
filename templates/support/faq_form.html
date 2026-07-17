@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>{{ page_title }}</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/faqs/">Back to FAQ List</a>
+                <a href="/dashboard/">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <p>
+                Use clear, specific keywords separated by commas.
+                Example: <strong>free shipping, shipping cost, delivery fee</strong>
+            </p>
+
+            <p>
+                Avoid broad words like <strong>help</strong>, <strong>offer</strong>,
+                <strong>product</strong>, or <strong>customer</strong> because they can create wrong matches.
+            </p>
+        </div>
+
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+
+                <p>
+                    {{ form.question.label_tag }}<br>
+                    {{ form.question }}
+                    {{ form.question.errors }}
+                </p>
+
+                <p>
+                    {{ form.answer.label_tag }}<br>
+                    {{ form.answer }}
+                    {{ form.answer.errors }}
+                </p>
+
+                <p>
+                    {{ form.category.label_tag }}<br>
+                    {{ form.category }}
+                    {{ form.category.errors }}
+                </p>
+
+                <p>
+                    {{ form.keywords.label_tag }}<br>
+                    {{ form.keywords }}
+                    {{ form.keywords.errors }}
+                </p>
+
+                <p>
+                    {{ form.is_active.label_tag }}
+                    {{ form.is_active }}
+                    {{ form.is_active.errors }}
+                </p>
+
+                <button type="submit">{{ button_text }}</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Unanswered Question - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Update Unanswered Question</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/unanswered/">Back to Unanswered Questions</a>
+                <a href="/dashboard/">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <p><strong>Question:</strong> {{ unanswered_question.question }}</p>
+            <p><strong>Customer Email:</strong> {{ unanswered_question.customer_email }}</p>
+            <p><strong>Created:</strong> {{ unanswered_question.created_at }}</p>
+        </div>
+
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+
+                <p>
+                    {{ form.status.label_tag }}<br>
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </p>
+
+                <p>
+                    {{ form.notes.label_tag }}<br>
+                    {{ form.notes }}
+                    {{ form.notes.errors }}
+                </p>
+
+                <button type="submit">Save Unanswered Question Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

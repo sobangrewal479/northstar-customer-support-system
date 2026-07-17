@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete FAQ - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Delete FAQ</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/faqs/">Back to FAQ List</a>
+                <a href="/dashboard/">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="danger-card">
+            <p>Are you sure you want to delete this FAQ?</p>
+
+            <p><strong>Question:</strong> {{ faq.question }}</p>
+            <p><strong>Answer:</strong> {{ faq.answer }}</p>
+            <p><strong>Category:</strong> {{ faq.category }}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Yes, Delete FAQ</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

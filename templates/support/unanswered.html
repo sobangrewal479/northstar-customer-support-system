@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unanswered Questions - Northstar Home Co.</title>
+    <link rel="stylesheet" href="{% static 'support/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <div class="header-card">
+            <h1>Unanswered Questions</h1>
+
+            <div class="nav-links">
+                <a href="/dashboard/">Back to Dashboard</a>
+                <a href="/chat/">Open Customer Chatbot</a>
+                <a href="/dashboard/unanswered/export/">Export Unanswered CSV</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Question</th>
+                        <th>Customer Email</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                        <th>Created</th>
+                        <th>Resolved At</th>
+                        <th>Created FAQ</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for item in unanswered_questions %}
+                        <tr>
+                            <td>{{ item.question }}</td>
+                            <td>{{ item.customer_email }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.notes }}</td>
+                            <td>{{ item.created_at }}</td>
+                            <td>{{ item.resolved_at }}</td>
+                            <td>
+                                {% if item.created_faq %}
+                                    {{ item.created_faq.question }}
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/dashboard/unanswered/{{ item.id }}/update/">Update</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8">No unanswered questions found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
