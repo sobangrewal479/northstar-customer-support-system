@@ -1,4 +1,4 @@
-# Test Checklist — Northstar Home Co. AI Support Dashboard
+# Test Checklist — Northstar AI Customer Support System
 
 This file records the main manual and automated tests completed for the project.
 

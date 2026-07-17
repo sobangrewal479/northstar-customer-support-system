@@ -1,4 +1,4 @@
-# Deployment Notes — Northstar Home Co. AI Support Dashboard
+# Deployment Notes — Northstar AI Customer Support System
 
 This project is currently built as a local Django MVP using SQLite and mock data.
 

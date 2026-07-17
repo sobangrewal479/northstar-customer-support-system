@@ -1,4 +1,6 @@
-# Northstar Home Co. AI Support Dashboard
+# Northstar AI Customer Support System
+
+Customer Support Chatbot + Admin Dashboard for Ecommerce Businesses
 
 A client-ready practice project for a small ecommerce business that needs a customer-facing support chatbot and an owner/admin dashboard for support visibility.
 

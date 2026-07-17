@@ -1,4 +1,4 @@
-# Northstar Home Co. AI Support Dashboard — Handover Guide
+# Northstar AI Customer Support System — Handover Guide
 
 This guide explains how the business owner or admin should use the AI Support Dashboard after setup.
 

@@ -1,8 +1,8 @@
-# Portfolio Case Study — Northstar Home Co. AI Support Dashboard
+# Portfolio Case Study — Northstar AI Customer Support System
 
 ## Project Name
 
-Northstar Home Co. AI Support Dashboard
+Northstar AI Customer Support System
 
 ---
 
