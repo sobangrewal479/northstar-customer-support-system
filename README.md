@@ -6,7 +6,7 @@ A client-ready practice project for a small ecommerce business that needs a cust
 
 This project was built for a mock ecommerce client, Northstar Home Co., a home organization and lifestyle product store. The system helps the business answer common customer questions, capture leads, track unanswered questions, manage FAQ content, and export support data.
 
-Demo video: https://youtu.be/8XALuCuhaIs
+Demo video:https://youtu.be/g2vejcVHi5s
 
 ---
 
